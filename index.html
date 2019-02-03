@@ -32,12 +32,14 @@
             const measurement_protocol = 1;
             const tid = 'UA-129049495-2';
             const t = 'event';
-            const cid = 'aaa';
+            const cid = '35009a79-1a05-49d7-b876-2b884d0f825b';
             const ec = 'email';
+            const cn = 'email';
+            const dt = 'testmail';
             const ea = 'open';
             const el = 'label_first';
 
-            const request_url = `${host}?v=${measurement_protocol}&tid=${tid}&t=${t}&cid=${cid}&ec=${ec}&ea=${ea}&el=${el}`;
+            const request_url = `${host}?v=${measurement_protocol}&tid=${tid}&t=${t}&cid=${cid}&ec=${ec}&ea=${ea}&el=${el}&cn=${cn}&dt=${dt}`;
 
             const send_hit = document.querySelector(".send_hit");
             send_hit.setAttribute('src', request_url);
@@ -53,7 +55,7 @@
 <body>
     Access Analyze Test
     <img class="send_hit" src="" width="1" height="1">
-    <img class="send_hit_origin" src="https://www.google-analytics.com/collect?v=1&t=event&tid=UA-129049495-2&cid=555&ec=email&ea=open&el=label_second" width="1" height="1">
+    <img class="send_hit_origin" src="https://www.google-analytics.com/collect?v=1&t=event&tid=UA-129049495-2&cid=555&ec=email&ea=open&el=label_second&cn=email&dt=testtitle" width="1" height="1">
 </body>
 
 </html>

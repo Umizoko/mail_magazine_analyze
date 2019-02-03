@@ -6,7 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Access Analyze</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <meta name="google-signin-client_id" content="395522779906-3jd6bl3k6jbujea9iunvo5lgtsn3sjnh.apps.googleusercontent.com">
+    <meta name="google-signin-scope" content="https://www.googleapis.com/auth/analytics.readonly">
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-129049495-2"></script>
@@ -23,31 +24,30 @@
 
         window.addEventListener('load', init);
 
-        function init(){
+        function init() {
 
             // 開封イベントの送信
             const host = 'https://www.google-analytics.com/collect';
 
+            // FIXME: オブジェクト化
             // option
             const measurement_protocol = 1;
-            const tid = 'UA-129049495-2';                           // tracking ID
-            const t = 'event';                                      // type
-            const cid = '35009a79-1a05-49d7-b876-2b884d0f825b';     // client ID
-            const ec = 'email';         // event category
-            const ea = 'open';          // event action
-            const el = 'label_third';   // event label
-            const cn = 'email';         // campaign Name
-            const dt = 'Test Mail Subtitle';      // mail Title
+            const tid = 'UA-129049495-2'; // tracking ID
+            const t = 'event'; // type
+            const cid = '35009a79-1a05-49d7-b876-2b884d0f825b'; // client ID
+            const ec = 'email'; // event category
+            const ea = 'open'; // event action
+            const el = 'label_third'; // event label
+            const cn = 'email'; // campaign Name
+            const dt = 'Test Mail Subtitle'; // mail Title
 
-            const request_url = `${host}?v=${measurement_protocol}&tid=${tid}&t=${t}&cid=${cid}&ec=${ec}&ea=${ea}&el=${el}&cn=${cn}&dt=${dt}`;
+            const request_url =
+                `${host}?v=${measurement_protocol}&tid=${tid}&t=${t}&cid=${cid}&ec=${ec}&ea=${ea}&el=${el}&cn=${cn}&dt=${dt}`;
 
             const send_hit = document.querySelector(".send_hit");
             send_hit.setAttribute('src', request_url);
 
-            console.log(send_hit.getAttribute("src"));
-
         }
-
     </script>
 
 </head>
@@ -55,7 +55,49 @@
 <body>
     Access Analyze Test
     <img class="send_hit" src="" width="1" height="1">
-    <img class="send_hit_origin" src="https://www.google-analytics.com/collect?v=1&t=event&tid=UA-129049495-2&cid=555&ec=email&ea=open&el=label_second&cn=email&dt=testtitle" width="1" height="1">
+
+    <h1>Hello Analytics Reporting API V4</h1>
+
+    <!-- The Sign-in button. This will run `queryReports()` on success. -->
+    <p class="g-signin2" data-onsuccess="queryReports"></p>
+
+    <!-- The API response will be printed here. -->
+    <textarea cols="80" rows="20" id="query-output"></textarea>
+
+    <script>
+        // Replace with your view ID.
+        var VIEW_ID = '189166654';
+
+        // Query the API and print the results to the page.
+        function queryReports() {
+            gapi.client.request({
+                path: '/v4/reports:batchGet',
+                root: 'https://analyticsreporting.googleapis.com/',
+                method: 'POST',
+                body: {
+                    reportRequests: [{
+                        viewId: VIEW_ID,
+                        dateRanges: [{
+                            startDate: '7daysAgo',
+                            endDate: 'today'
+                        }],
+                        metrics: [{
+                            expression: 'ga:sessions'
+                        }]
+                    }]
+                }
+            }).then(displayResults, console.error.bind(console));
+        }
+
+        function displayResults(response) {
+            var formattedJson = JSON.stringify(response.result, null, 2);
+            document.getElementById('query-output').value = formattedJson;
+        }
+    </script>
+
+    <!-- Load the JavaScript API client and Sign-in library. -->
+    <script src="https://apis.google.com/js/client:platform.js"></script>
+
 </body>
 
 </html>

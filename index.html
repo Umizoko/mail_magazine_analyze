@@ -30,14 +30,14 @@
 
             // option
             const measurement_protocol = 1;
-            const tid = 'UA-129049495-2';
-            const t = 'event';
-            const cid = '35009a79-1a05-49d7-b876-2b884d0f825b';
-            const ec = 'email';
-            const cn = 'email';
-            const dt = 'testmail';
-            const ea = 'open';
-            const el = 'label_first';
+            const tid = 'UA-129049495-2';                           // tracking ID
+            const t = 'event';                                      // type
+            const cid = '35009a79-1a05-49d7-b876-2b884d0f825b';     // client ID
+            const ec = 'email';         // event category
+            const ea = 'open';          // event action
+            const el = 'label_third';   // event label
+            const cn = 'email';         // campaign Name
+            const dt = 'Test Mail Subtitle';      // mail Title
 
             const request_url = `${host}?v=${measurement_protocol}&tid=${tid}&t=${t}&cid=${cid}&ec=${ec}&ea=${ea}&el=${el}&cn=${cn}&dt=${dt}`;
 
